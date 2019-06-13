@@ -68,8 +68,8 @@ impl TocEntry {
     }
 }
 
-fn to_utf16_bom_string(str: &str) -> String {
-    let u16bytes = UTF_16BE_ENCODING.encode(str, EncoderTrap::Strict).unwrap();
+fn to_utf16_bom_string(s: &str) -> String {
+    let u16bytes = UTF_16BE_ENCODING.encode(s, EncoderTrap::Strict).unwrap();
     let u16str = dbg!(u16bytes
         .into_iter()
         .map(|byte| format!("{:02X?}", byte))
