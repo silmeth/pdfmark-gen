@@ -70,10 +70,10 @@ impl TocEntry {
 
 fn to_utf16_bom_string(s: &str) -> String {
     let u16bytes = UTF_16BE_ENCODING.encode(s, EncoderTrap::Strict).unwrap();
-    let u16str = dbg!(u16bytes
+    let u16str = u16bytes
         .into_iter()
         .map(|byte| format!("{:02X?}", byte))
-        .collect::<String>());
+        .collect::<String>();
     format!("<FEFF{}>", u16str)
 }
 
@@ -85,9 +85,7 @@ fn main() {
     let data = fs::read_to_string(data_path).expect("Could not read input file");
     let data: PdfMarkData = serde_json::from_str(&data).expect("Could not parse input file");
 
-    dbg!(&data);
-
-    let output = &dbg!(data.generate_pdfmark_string());
+    let output = data.generate_pdfmark_string();
 
     fs::write(output_path, output).expect("Could not write to output file");
 }
